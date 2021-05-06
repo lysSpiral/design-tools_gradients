@@ -88,6 +88,7 @@ function addRemoveColor(e) {
 
 /* Créer un dégradé aléatoire*/
 function getRandomGradient(e){
+	infoSpan.innerHTML = '';
 	const allInputsForRandom = document.querySelectorAll(".input-color");
 	for (let i =0; i < allInputsForRandom.length; i++) {
 		newRandomColor = `#${getRandomColor()}`;
