@@ -19,28 +19,87 @@
 
 </head>
 <body>
-	<div id="colorsZone" class="container-colors">
-		<input type="text" id="inputColor1" data-index="1" maxlength="7" class="input-color">
-		<input type="text" id="inputColor2" data-index="1" maxlength="7"class="input-color">
+<div id="top">
+	<div id="grey-line-top" class="grey-line">
+		<p id="back-link-top" class="link-to-recap">Retour au portfolio</p>
 	</div>
-	<div id="rangeZone" class="container-range">
-		<input type="range" id="inputRange" class="input-range">
+	<div id="black-line-top" class="black-line">
+		<span>&nbsp;</span>
 	</div>
-	<div id="buttonsZone" class="container-btn">
-		<button type="button" id="btnPlus" class="plus">
-			<img src="img/plus.svg" alt="icône Plus">
+	<div id="btnDisplay">
+		<button type="button" id="displayParamZone" class="hidden-element">Afficher la zone de paramétrage
 		</button>
-		<button type="button" id="btnMinus" class="minus">
-			<img src="img/minus.svg" alt="icône Moins" id="imgMinus">
-		</button>
-		<button type="button" id="btnRandom" class="random">
-			<p id="buttonRandom">Random</p>
-		</button>
+	</div>
+</div>
+
+
+<header>
+	<div id="bannerHeader" class="hidden-element">
+		<p>&nbsp;</p>
+	</div>
+</header>
+
+
+<div id="main">
+	<div id="paramZone">
+		<div id="colorsZone" class="container-zone container-colors">
+			<input type="text" id="inputColor1" data-index="1" maxlength="7" class="input-color">
+			<input type="text" id="inputColor2" data-index="2" maxlength="7"class="input-color">
+		</div>
+		<div id="rangeZone" class="container-zone">
+			<input type="range" id="inputRange" class="input-range">
+		</div>
+		<div id="buttonsZone" class="container-zone container-btn">
+			<button type="button" id="btnPlus" class="plus">
+				<img src="img/plus.svg" alt="icône Plus" id="imgPlus">
+			</button>
+			<button type="button" id="btnMinus" class="minus">
+				<img src="img/minus.svg" alt="icône Moins" id="imgMinus">
+			</button>
+			<button type="button" id="btnRandom" class="button-with-text">
+				Random
+			</button>
+
+		</div>
+		<p id="infoSpan" class="info-text">
+	
+		</p>	
+		<div id="displayZone" >
+			<div id="hideParamZone" class="container-zone">
+				<button type="button" id="btnHide" class="hide-btn">
+				Cacher la zone de paramétrage
+				</button>
+			</div>
+			<p id="displayMntTitle" class="info-text">Changer la présentation</p>
+			<div id="altDisplayZone" class="container-zone">	
+				
+				<button type="button" id="btnDisplayBanner" class="button-with-text">
+					Bannières
+				</button>
+
+				<button type="button" id="btnDisplayLeftSide" class="button-with-text">
+					Côté 
+				</button>
+
+				<button type="button" id="btnDisplayTransparent" class="button-with-text hidden-element">
+					Transparent 
+				</button>
+				
+				<button type="button" id="btnDisplayMain" class="button-with-text">
+					Centre 
+				</button>
+			</div>
+
+		</div>
 
 	</div>
-	<span id="infoSpan">
-		
-	</span>
+</div>
+
+<footer>
+	<div id="bannerFooter" class="hidden-element">
+		<p>&nbsp;</p>
+	</div>
+</footer>
 
 <!-- SCRIPTS -->
 

@@ -8,31 +8,105 @@
 	padding: 0;
 }
 
+.hidden-element {
+	display: none;
+}
+
 body {
 	font-family: 'Exo 2', sans-serif;
-	height: 100vh;
+	min-height: 100vh;
+	height: 70;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	background: #333;
+	/*background: #333;*/
+	background: #F1F1F1;
 }
 
-.container-colors, .container-btn, .container-range {
+#top {
+	min-width: 100%;
+
+}
+
+#main {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	min-width: 100%;
+	min-height: 97vh;
+	/*background: #F1F1F1;*/
+	background: transparent;
+}
+
+.black-line, .grey-line {
+	width: 100%;
+}
+
+.black-line {
+	background-color: black;
+	height: 10px;
+}
+
+.grey-line {
+	background: #bdc3c7;	/* fallback for old browsers */
+	background: -webkit-linear-gradient(to top, #2c3e50, #bdc3c7);	/* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to top, #2c3e50, #bdc3c7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	height: 15px;
+}
+
+.link-to-recap {
+	color: white;
+	text-align: right;
+	margin-right: 10px;
+	font-weight: bold;
+	font-size: 0.75rem;
+}
+
+header, footer {
+	width: 100%;
+}
+#bannerHeader, #bannerFooter {
+	height: 25vh;
+	background-color: #F1F1F1;
+	min-width: 100%;
+}
+
+#paramZone {
+	height: auto;
+	width: 20%;
+	min-width: 300px;
+	max-width: 450px;
+	display: flex;
+	flex-direction: column;
+	margin-top: 10vh;
+}
+
+#displayParamZone {
+	float: right;
+	height: auto;
+	min-height: 35px;
+	width: auto;
+}
+
+.container-zone {	
 	height: auto;
 	width: 30%;
 	min-width: 300px;
 	max-width: 400px;
+
 	display: flex;
+	
 	justify-content: center;
 	align-items: center;
 }
 
-.container-colors {
+.container-colors, #displayZone {
 	flex-direction: column;
 }
 
 .container-btn {
+	/*display: inline;*/
 	align-items: center;
 }
 
@@ -43,8 +117,9 @@ input {
 	outline: none;
 	padding: 15px;
 	margin: 5px 0;
-	font-size: 25px;
+	font-size: 1.75em;
 	font-weight: bold;
+	color:#333;
 }
 
 button {
@@ -66,18 +141,27 @@ button img {
 	pointer-events: none;
 }
 
-button p {
+/*button p {
 	margin-bottom: 0;
-}
+}*/
 
-.random {
-	font-size: 25px;
+.button-with-text {
+	font-size: 1.65em;
 	width: 200px;
 	height: 60px;
 }
 
-span {
+.hide-btn {
+	font-size: 1.15em;
+	width: 100%;
+}
+
+.info-text {
 	margin-top: 20px;
 	font-size: 20px;
 	text-align: center;
+}
+
+#displayMntTitle {
+	font-size: 1.5em;
 }
