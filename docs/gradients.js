@@ -8,12 +8,20 @@ const bannerFooter = document.getElementById("bannerFooter");
 
 const displayParamZone = document.getElementById("displayParamZone");
 const paramZone = document.getElementById("paramZone");
-// const previewZone = document.getElementById("previewZone");
+const previewZone = document.getElementById("previewZone");
 const hideParamZone = document.getElementById("hideParamZone");
+const rangeZoneSingle = document.getElementById("rangeZoneSingle");
+const rangeZoneDouble = document.getElementById("rangeZoneDouble");
+
+
 
 const containerColors = document.querySelector(".container-colors");
 const inputColors = document.querySelectorAll(".input-color");
-const inputRange = document.querySelector(".input-range");
+const inputRangeSingle = document.getElementById("inputRangeSingle");
+const inputRangeTop = document.getElementById("inputRangeTop");
+const inputRangeHeader = document.getElementById("inputRangeHeader");
+const inputRangeFooter = document.getElementById("inputRangeFooter");
+
 
 const buttons = document.querySelectorAll("button");
 const btnRandom = document.getElementById("btnRandom");
@@ -25,11 +33,12 @@ const btnDisplayTransparent = document.getElementById('btnDisplayTransparent');
 
 
 const infoSpan = document.getElementById("infoSpan");
+const displayMntTitle = document.getElementById("displayMntTitle");
+
 const imgMinus = document.getElementById("imgMinus");
 const imgPlus = document.getElementById("imgPlus");
 
 var index = 3;
-//var ref = previewZone;
 
 var ref = bodyElement;
 
@@ -54,12 +63,33 @@ function initalizeGradient(){
 	inputColors.forEach(inputC =>{
 		inputC.addEventListener('input', setInputColorManually);});
 
-	/* Ajouter un eventListener à la barre Range*/
-	inputRange.addEventListener('input',(e)=> {
-		gradientAngle = e.target.value * 3.6;
+	/* Ajouter un eventListener à la barre RangeSingle*/
+	inputRangeSingle.addEventListener('input',(e)=> {
+		gradientAngle = getRandomAngle(e);
 		//console.log("Inclinaison de "+gradientAngle+" degrés");
-		//changeBackground();
+
 		changeElementBg(ref);
+	})
+
+	/* Ajouter un eventListener à la barre RangeTop*/
+	inputRangeTop.addEventListener('input',(e)=> {
+		gradientAngle = getRandomAngle(e);
+		//console.log("Inclinaison de "+gradientAngle+" degrés");
+		changeElementBg(bodyElement);
+	})
+
+	/* Ajouter un eventListener à la barre RangeHeader*/
+	inputRangeHeader.addEventListener('input',(e)=> {
+		gradientAngle = getRandomAngle(e);
+		//console.log("Inclinaison de "+gradientAngle+" degrés");
+		changeElementBg(bannerHeader);
+	})
+
+	/* Ajouter un eventListener à la barre RangeFotter*/
+	inputRangeFooter.addEventListener('input',(e)=> {
+		gradientAngle = getRandomAngle(e);
+		//console.log("Inclinaison de "+gradientAngle+" degrés");
+		changeElementBg(bannerFooter);
 	})
 
 	/*Ajouter un eventListener aux boutons Plus et Moins*/
@@ -72,12 +102,17 @@ function initalizeGradient(){
 
 	/*Ajouter un eventListener au bouton btnHide*/
 	btnHide.addEventListener('click', () => {
+		main.style.minHeight = '80vh';
 		hideElement(paramZone);
-		showElement(displayParamZone)});
+		btnDisplayZone.style.display = "flex";
+		btnDisplayZone.style.justifyContent = "start";
+		btnDisplayZone.style.flexDirection = "column";
+		showElement(btnDisplayZone)});
 
 	/*Ajouter un eventListener au bouton displayParamZone*/
 	displayParamZone.addEventListener('click', () => {
-		hideElement(displayParamZone);
+		main.style.minHeight = '96.5vh';
+		hideElement(btnDisplayZone);
 		showElement(paramZone)});
 
 	/*Ajouter un eventListener au bouton btnDisplayBanner */
@@ -104,33 +139,58 @@ function showElement(element) {
 }
 
 function changeElementBg(element) {
+	if(Array.isArray(element)){
+		element.forEach(elementItem => changeBg(elementItem));
+	}
+	else {
+		changeBg(element);
+	}
+}
+
+function changeBg(element) {
 	element.style.background = `linear-gradient(${gradientAngle}deg, ${colorValues})`;
 }
 
-function changeBackground(){
-	bodyElement.style.background = `linear-gradient(${gradientAngle}deg, ${colorValues})`;
-}
+// function changeBackground(){
+// 	bodyElement.style.background = `linear-gradient(${gradientAngle}deg, ${colorValues})`;
+// }
 
+/*Affichage : dégradé sur toute la fenêtre - affichage par défaut*/
+/*Fonction de réinitialisation de l'affichage*/
 function displayTransparent() {
 	main.style.background = 'transparent';
+	ref = bodyElement;
 	hideElement(btnDisplayTransparent);
-	
+	hideElement(previewZone);
+	hideElement(rangeZoneDouble);
+
+
 	var banners = [bannerHeader, bannerFooter];
 	banners.forEach(function(banner){
+		banner.style.minWidth = '100%';
+		banner.style.background = '#F1F1F1';
 		hideElement(banner);
 	});
+	bannerHeader.style.minHeight = '9vh';
+	bannerFooter.style.minHeight = '18vh';
 
+	showElement(rangeZoneSingle);
 	showElement(hideParamZone);
 	showElement(btnDisplayBanner);
 	showElement(btnDisplayMain);
 	showElement(btnDisplayLeftSide);
 
 	bodyElement.style.alignItems = "center";
-	main.style.minHeight = '97vh';
+	main.style.minHeight = '96.5vh';
 	main.style.minWidth = "100%";
 	main.style.justifyContent = "center";
-	paramZone.style.marginTop = '10vh';
-	paramZone.style.marginLeft = 0;
+	main.style.marginTop = "0";
+
+	paramZone.style.margin = "10vh auto 0";
+
+	displayMntTitle.style.marginTop ="20px";
+
+	changeElementBg(ref);
 
 	lightenButtons();
 }
@@ -140,12 +200,23 @@ function displayBanner() {
 
 	hideElement(btnDisplayBanner);
 	hideElement(hideParamZone);
+	hideElement(rangeZoneSingle);
 	showElement(btnDisplayTransparent);
+	showElement(rangeZoneDouble);
 
+
+	var banners = [bannerHeader, bannerFooter];
+	banners.forEach(function(banner){
+		changeElementBg(banner);
+		showElement(banner);
+		banner.style.minHeight = '12vh';
+	});
+	ref = banners;
 	main.style.background = '#F1F1F1';
-	main.style.minHeight = '70vh';
-	
+	main.style.minHeight = '75vh';
+	//main.style.marginTop = "12vh";
 	paramZone.style.margin = '2vh 0';
+	displayMntTitle.style.marginTop = 0;
 
 	darkenButtons();
 }
@@ -156,6 +227,7 @@ function displayLeftSide() {
 	hideElement(hideParamZone);	
 	hideElement(btnDisplayLeftSide);
 
+	showElement(previewZone);
 	showElement(btnDisplayTransparent);
 	showElement(btnDisplayBanner);
 	showElement(btnDisplayMain);
@@ -163,14 +235,18 @@ function displayLeftSide() {
 	showElement(btnDisplayBanner);
 
 	bodyElement.style.alignItems = "flex-start";
+	bodyElement.style.background = "#F1F1F1";
 
-	main.style.justifyContent = "flex-start";
-	main.style.backgroundColor = "#F1F1F1";
-	main.style.minWidth = "20%";
-	main.style.maxWidth = "50%";
-	paramZone.style.marginLeft = "10vh";
+	//main.style.justifyContent = "flex-start";
+	main.style.display ="inline-flex" ;
+	main.style.minWidth = "100%";
+	main.style.minHeight = "96.5vh";
+
+	paramZone.style.margin = "10vh 20vh 0";
 
 	darkenButtons();
+	ref = previewZone;
+	changeElementBg(ref);
 }
 
 function displayMain() {
@@ -191,6 +267,7 @@ function displayMain() {
 	main.style.minHeight = '70vh';
 	
 	paramZone.style.margin = '7vh 0';
+	displayMntTitle.style.marginTop = 0;
 
 	darkenButtons();
 }
@@ -257,7 +334,7 @@ function addRemoveColor(e) {
 	
 }
 
-/* Créer un dégradé aléatoire*/
+/*Créer un dégradé aléatoirement*/
 function getRandomGradient(e){
 	infoSpan.innerHTML = '';
 	const allInputsForRandom = document.querySelectorAll(".input-color");
@@ -270,8 +347,15 @@ function getRandomGradient(e){
 	}
 }
 
+
+/*Créer une couleur aléatoirement*/
 function getRandomColor() {
 	return Math.floor(Math.random()*16777215).toString(16);
+}
+
+/*Créer un angle aléatoirement*/
+function getRandomAngle(e) {
+	return e.target.value * 3.6;
 }
 
 function setInputColor(element, color) {
