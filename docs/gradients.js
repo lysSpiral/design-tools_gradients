@@ -28,8 +28,8 @@ const btnRandom = document.getElementById("btnRandom");
 const btnHide = document.getElementById("btnHide");
 const btnDisplayBanner = document.getElementById("btnDisplayBanner");
 const btnDisplayMain = document.getElementById("btnDisplayMain");
-const btnDisplayLeftSide = document.getElementById("btnDisplayLeftSide");
-const btnDisplayTransparent = document.getElementById('btnDisplayTransparent');
+const btnDisplayRightSide = document.getElementById("btnDisplayRightSide");
+const btnDisplayWindow = document.getElementById('btnDisplayWindow');
 
 
 const infoSpan = document.getElementById("infoSpan");
@@ -118,14 +118,14 @@ function initalizeGradient(){
 	/*Ajouter un eventListener au bouton btnDisplayBanner */
 	btnDisplayBanner.addEventListener('click', displayBanner);
 
-	/*Ajouter un eventListener au bouton btnDisplayLeftSide */
-	btnDisplayLeftSide.addEventListener('click', displayLeftSide);
+	/*Ajouter un eventListener au bouton btnDisplayRightSide */
+	btnDisplayRightSide.addEventListener('click', DisplayRightSide);
 
 	/*Ajouter un eventListener au bouton btnDisplayMain */
 	btnDisplayMain.addEventListener('click', displayMain);
 
-	/*Ajouter un eventListener au bouton btnDisplayTransparent */
-	btnDisplayTransparent.addEventListener('click', displayTransparent);
+	/*Ajouter un eventListener au bouton btnDisplayWindow */
+	btnDisplayWindow.addEventListener('click', displayWindow);
 }
 
 
@@ -157,10 +157,10 @@ function changeBg(element) {
 
 /*Affichage : dégradé sur toute la fenêtre - affichage par défaut*/
 /*Fonction de réinitialisation de l'affichage*/
-function displayTransparent() {
+function displayWindow() {
 	main.style.background = 'transparent';
 	ref = bodyElement;
-	hideElement(btnDisplayTransparent);
+	hideElement(btnDisplayWindow);
 	hideElement(previewZone);
 	hideElement(rangeZoneDouble);
 
@@ -178,7 +178,7 @@ function displayTransparent() {
 	showElement(hideParamZone);
 	showElement(btnDisplayBanner);
 	showElement(btnDisplayMain);
-	showElement(btnDisplayLeftSide);
+	showElement(btnDisplayRightSide);
 
 	bodyElement.style.alignItems = "center";
 	main.style.minHeight = '96.5vh';
@@ -196,12 +196,12 @@ function displayTransparent() {
 }
 
 function displayBanner() {
-	displayTransparent();
+	displayWindow();
 
 	hideElement(btnDisplayBanner);
 	hideElement(hideParamZone);
 	hideElement(rangeZoneSingle);
-	showElement(btnDisplayTransparent);
+	showElement(btnDisplayWindow);
 	showElement(rangeZoneDouble);
 
 
@@ -221,14 +221,14 @@ function displayBanner() {
 	darkenButtons();
 }
 
-function displayLeftSide() {
-	displayTransparent();
+function DisplayRightSide() {
+	displayWindow();
 
 	hideElement(hideParamZone);	
-	hideElement(btnDisplayLeftSide);
+	hideElement(btnDisplayRightSide);
 
 	showElement(previewZone);
-	showElement(btnDisplayTransparent);
+	showElement(btnDisplayWindow);
 	showElement(btnDisplayBanner);
 	showElement(btnDisplayMain);
 
@@ -250,21 +250,21 @@ function displayLeftSide() {
 }
 
 function displayMain() {
-	displayTransparent();
+	displayWindow();
 
 	hideElement(btnDisplayMain);
 	hideElement(hideParamZone);
 
-	showElement(btnDisplayTransparent);
+	showElement(btnDisplayWindow);
 	showElement(btnDisplayBanner);
-	showElement(btnDisplayLeftSide);
+	showElement(btnDisplayRightSide);
 
 	var banners = [bannerHeader, bannerFooter];
 	banners.forEach(function(banner){
 		showElement(banner);
 	});
 
-	main.style.minHeight = '70vh';
+	main.style.minHeight = '75vh';
 	
 	paramZone.style.margin = '7vh 0';
 	displayMntTitle.style.marginTop = 0;

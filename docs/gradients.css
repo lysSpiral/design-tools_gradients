@@ -30,7 +30,7 @@ body {
 	align-items: flex-start;
 	justify-content: center;
 	min-width: 100%;
-	min-height: 97vh;
+	min-height: 96.5vh;
 	/*background: #F1F1F1;*/
 	background: transparent; 
 }
@@ -210,7 +210,7 @@ body {
 	align-items: flex-start;
 	justify-content: center;
 	min-width: 100%;
-	min-height: 97vh;
+	min-height: 96.5vh;
 	/*background: #F1F1F1;*/
 	background: transparent; 
 }
@@ -250,6 +250,7 @@ header, footer {
 
 #bannerFooter{
 	min-height: 18vh;
+
 }
 
 #previewZone {
