@@ -12,7 +12,7 @@ const previewZone = document.getElementById("previewZone");
 const hideParamZone = document.getElementById("hideParamZone");
 const rangeZoneSingle = document.getElementById("rangeZoneSingle");
 const rangeZoneDouble = document.getElementById("rangeZoneDouble");
-
+const altDisplayZone = document.getElementById("altDisplayZone");
 
 
 const containerColors = document.querySelector(".container-colors");
@@ -24,12 +24,13 @@ const inputRangeFooter = document.getElementById("inputRangeFooter");
 
 
 const buttons = document.querySelectorAll("button");
+const textButtons = document.querySelectorAll(".button-with-text");
 const btnRandom = document.getElementById("btnRandom");
 const btnHide = document.getElementById("btnHide");
 const btnDisplayBanner = document.getElementById("btnDisplayBanner");
 const btnDisplayMain = document.getElementById("btnDisplayMain");
-const btnDisplayRightSide = document.getElementById("btnDisplayRightSide");
-const btnDisplayWindow = document.getElementById('btnDisplayWindow');
+const btnDisplaySide = document.getElementById("btnDisplaySide");
+const btnDisplayTransparent = document.getElementById('btnDisplayTransparent');
 
 
 const infoSpan = document.getElementById("infoSpan");
@@ -118,14 +119,14 @@ function initalizeGradient(){
 	/*Ajouter un eventListener au bouton btnDisplayBanner */
 	btnDisplayBanner.addEventListener('click', displayBanner);
 
-	/*Ajouter un eventListener au bouton btnDisplayRightSide */
-	btnDisplayRightSide.addEventListener('click', DisplayRightSide);
+	/*Ajouter un eventListener au bouton btnDisplaySide */
+	btnDisplaySide.addEventListener('click', displaySide);
 
 	/*Ajouter un eventListener au bouton btnDisplayMain */
 	btnDisplayMain.addEventListener('click', displayMain);
 
-	/*Ajouter un eventListener au bouton btnDisplayWindow */
-	btnDisplayWindow.addEventListener('click', displayWindow);
+	/*Ajouter un eventListener au bouton btnDisplayTransparent */
+	btnDisplayTransparent.addEventListener('click', displayTransparent);
 }
 
 
@@ -157,10 +158,10 @@ function changeBg(element) {
 
 /*Affichage : dégradé sur toute la fenêtre - affichage par défaut*/
 /*Fonction de réinitialisation de l'affichage*/
-function displayWindow() {
+function displayTransparent() {
 	main.style.background = 'transparent';
 	ref = bodyElement;
-	hideElement(btnDisplayWindow);
+	hideElement(btnDisplayTransparent);
 	hideElement(previewZone);
 	hideElement(rangeZoneDouble);
 
@@ -178,7 +179,7 @@ function displayWindow() {
 	showElement(hideParamZone);
 	showElement(btnDisplayBanner);
 	showElement(btnDisplayMain);
-	showElement(btnDisplayRightSide);
+	showElement(btnDisplaySide);
 
 	bodyElement.style.alignItems = "center";
 	main.style.minHeight = '96.5vh';
@@ -189,19 +190,19 @@ function displayWindow() {
 	paramZone.style.margin = "10vh auto 0";
 
 	displayMntTitle.style.marginTop ="20px";
-
+	altDisplayZoneInline();
 	changeElementBg(ref);
 
 	lightenButtons();
 }
 
 function displayBanner() {
-	displayWindow();
+	displayTransparent();
 
 	hideElement(btnDisplayBanner);
 	hideElement(hideParamZone);
 	hideElement(rangeZoneSingle);
-	showElement(btnDisplayWindow);
+	showElement(btnDisplayTransparent);
 	showElement(rangeZoneDouble);
 
 
@@ -221,14 +222,14 @@ function displayBanner() {
 	darkenButtons();
 }
 
-function DisplayRightSide() {
-	displayWindow();
+function displaySide() {
+	displayTransparent();
 
 	hideElement(hideParamZone);	
-	hideElement(btnDisplayRightSide);
+	hideElement(btnDisplaySide);
 
 	showElement(previewZone);
-	showElement(btnDisplayWindow);
+	showElement(btnDisplayTransparent);
 	showElement(btnDisplayBanner);
 	showElement(btnDisplayMain);
 
@@ -237,39 +238,64 @@ function DisplayRightSide() {
 	bodyElement.style.alignItems = "flex-start";
 	bodyElement.style.background = "#F1F1F1";
 
-	//main.style.justifyContent = "flex-start";
 	main.style.display ="inline-flex" ;
 	main.style.minWidth = "100%";
 	main.style.minHeight = "96.5vh";
-
-	paramZone.style.margin = "10vh 20vh 0";
-
+	 
+	window.matchMedia("(max-width: 375px)") ? altDisplayZoneColumn() : paramZone.style.margin = "10vh 10vw 0";
+	
 	darkenButtons();
 	ref = previewZone;
 	changeElementBg(ref);
 }
 
+function altDisplayZoneColumn() {
+	paramZone.style.margin = "10vh 3vw 0";
+	greaterMarginTextButtons();
+	altDisplayZone.style.flexDirection = "column";
+}
+
+function altDisplayZoneInline() {
+	paramZone.style.margin = "10vh 0 0 0";
+	shorterMarginTextButtons();
+	altDisplayZone.style.flexDirection = "row";
+}
+
+
 function displayMain() {
-	displayWindow();
+	displayTransparent();
 
 	hideElement(btnDisplayMain);
 	hideElement(hideParamZone);
 
-	showElement(btnDisplayWindow);
+	showElement(btnDisplayTransparent);
 	showElement(btnDisplayBanner);
-	showElement(btnDisplayRightSide);
+	showElement(btnDisplaySide);
 
 	var banners = [bannerHeader, bannerFooter];
 	banners.forEach(function(banner){
 		showElement(banner);
 	});
 
-	main.style.minHeight = '75vh';
+	main.style.minHeight = '70vh';
 	
 	paramZone.style.margin = '7vh 0';
 	displayMntTitle.style.marginTop = 0;
 
 	darkenButtons();
+}
+
+function greaterMarginTextButtons() {
+	textButtons.forEach(function(button) {
+		console.log(button);
+		button.style.margin = '1vh 1.5vw';
+	} );
+}
+
+function shorterMarginTextButtons() {
+	textButtons.forEach(function(button) {
+		button.style.margin = '0 1.5vw';
+	} );
 }
 
 function lightenButtons() {
@@ -292,6 +318,31 @@ function darkenButtons() {
 	imgPlus.src="img/plus_light.svg";
 }
 
+/*Créer une couleur aléatoirement*/
+/* appel à createInputColorElement placé dans cette méthode plutôt que dans addRemoveColor pour garantir la con*/
+function getRandomColor() {
+	var randomNb = Math.floor(Math.random()*16777215).toString(16);
+
+	if (randomNb.length < 3) {
+		while (randomNb.length < 3) {
+			randomNb = Math.floor(Math.random()*16777215).toString(16);
+		}
+	}
+	else if (randomNb.length === 5) {
+		let lastChar = randomNb.charAt(randomNb.length-1);
+		let rootString = randomNb.substring(0,4);
+		randomNb = rootString +'0'+lastChar;
+
+	} 
+	
+
+	var randomHex = '#'+ randomNb; // N'empêche pas les codes à 5 caractères (élision du 0 des dizaines)
+
+	var randomHexElement = createInputColorElement(randomHex);
+
+	return randomHexElement;
+}
+
 /*Ajouter / Retirer une couleur à la fin*/
 function addRemoveColor(e) {
 	const allInputs = document.querySelectorAll(".input-color");
@@ -305,11 +356,14 @@ function addRemoveColor(e) {
 		}
 		infoSpan.innerHTML = '';
 		
-		const randomColor = getRandomColor();
-		var newColor = createInputColorElement(randomColor);
+		//const randomColor = 
 		
+		//var newColor = createInputColorElement(randomColor);
+		var newColor = getRandomColor();
+				
 		containerColors.appendChild(newColor);
-		colorValues.push(`#${randomColor.toUpperCase()}`);
+		//colorValues.push(`#${randomColor.toUpperCase()}`);
+		colorValues.push(newColor.value);
 		
 		//changeBackground();
 		changeElementBg(ref);
@@ -339,7 +393,7 @@ function getRandomGradient(e){
 	infoSpan.innerHTML = '';
 	const allInputsForRandom = document.querySelectorAll(".input-color");
 	for (let i =0; i < allInputsForRandom.length; i++) {
-		newRandomColor = `#${getRandomColor()}`;
+		newRandomColor = getRandomColor().value;
 		colorValues[i] = newRandomColor;
 		setInputColor(allInputsForRandom[i], newRandomColor);
 		//changeBackground();
@@ -347,11 +401,6 @@ function getRandomGradient(e){
 	}
 }
 
-
-/*Créer une couleur aléatoirement*/
-function getRandomColor() {
-	return Math.floor(Math.random()*16777215).toString(16);
-}
 
 /*Créer un angle aléatoirement*/
 function getRandomAngle(e) {
@@ -368,7 +417,7 @@ function createInputColorElement(color) {
 	newColorElement.setAttribute("class","input-color");
 	newColorElement.setAttribute("data-index",index);
 	newColorElement.setAttribute("maxlength",7);
-	setInputColor(newColorElement, `#${color}`);
+	setInputColor(newColorElement, color);
 
 	newColorElement.addEventListener('input', setInputColorManually);
 
